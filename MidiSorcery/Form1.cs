@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Text.RegularExpressions;
 using Melanchall.DryWetMidi.Interaction;
 
 namespace MidiSorcery
@@ -8,7 +9,11 @@ namespace MidiSorcery
         public Form1(string song)
         {
             InitializeComponent();
-            this.Text = song;
+            string pattern = @"[\w-]+\.";
+            Regex rx = new Regex(pattern);
+
+            Match match = rx.Match(song);
+            this.Text = match.Value;
 
             SongPlayer.Initialize(song);
             SongPlayer.Play();

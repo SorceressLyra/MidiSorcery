@@ -35,6 +35,7 @@ namespace MidiSorcery
             try
             {
                 var midiFile = MidiFile.Read(location);
+
                 playback = midiFile.GetPlayback(outputDevice);
                 playback.NotesPlaybackStarted += Playback_NotesPlaybackStarted;
                 playback.Finished += Playback_Finished;
