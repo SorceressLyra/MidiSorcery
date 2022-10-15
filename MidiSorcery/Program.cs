@@ -13,8 +13,8 @@ namespace MidiSorcery
             ApplicationConfiguration.Initialize();
             try
             {
-                //string song = Environment.GetCommandLineArgs()[1];
-                Application.Run(new Form1(@"C:\Users\jonas\Downloads\CaveStory.mid"));
+                string song = Environment.GetCommandLineArgs()[1];
+                Application.Run(new Form1(song));
 
             }
             catch

@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using Melanchall.DryWetMidi.Interaction;
 
 namespace MidiSorcery
 {
@@ -15,7 +16,7 @@ namespace MidiSorcery
             SongPlayer.OnFinish += Application.Exit;
             SetProgress();
 
-            System.Timers.Timer timer = new(100);
+            System.Timers.Timer timer = new(10);
             timer.AutoReset = true;
             timer.Elapsed += timerElapse;
             timer.Start();
@@ -30,7 +31,10 @@ namespace MidiSorcery
         private void SetProgress()
         {
             float percentage = ((float)SongPlayer.Elapsed / (float)SongPlayer.Duration) * 100;
-            string output = $"{percentage.ToString("000.0")}%";
+
+            TimeSpan elapsed = TimeSpan.Parse($"{SongPlayer.ElaspedSpan.Hours}:{SongPlayer.ElaspedSpan.Minutes}:{SongPlayer.ElaspedSpan.Seconds}");
+            TimeSpan duration = TimeSpan.Parse($"{SongPlayer.DurationSpan.Hours}:{SongPlayer.DurationSpan.Minutes}:{SongPlayer.DurationSpan.Seconds}");
+            string output = $"{percentage.ToString("000.0")}% | {elapsed.ToString(@"mm\:ss")}/{duration.ToString(@"mm\:ss")}";
 
             if (this.ProgressText.InvokeRequired)
             {

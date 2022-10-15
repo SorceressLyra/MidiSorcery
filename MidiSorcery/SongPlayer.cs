@@ -22,6 +22,9 @@ namespace MidiSorcery
 
         public static int Elapsed => int.Parse(playback.GetCurrentTime(TimeSpanType.Midi).ToString());
         public static int Duration => int.Parse(playback.GetDuration(TimeSpanType.Midi).ToString());
+
+        public static MetricTimeSpan ElaspedSpan => (MetricTimeSpan)playback.GetCurrentTime(TimeSpanType.Metric);
+        public static MetricTimeSpan DurationSpan => (MetricTimeSpan)playback.GetDuration(TimeSpanType.Metric);
         public static bool IsRunning => playback.IsRunning;
 
 
