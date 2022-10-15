@@ -1,0 +1,28 @@
+namespace MidiSorcery
+{
+    internal static class Program
+    {
+        /// <summary>
+        ///  The main entry point for the application.
+        /// </summary>
+        [STAThread]
+        static void Main()
+        {
+            // To customize application configuration such as set high DPI settings or default font,
+            // see https://aka.ms/applicationconfiguration.
+            ApplicationConfiguration.Initialize();
+            try
+            {
+                //string song = Environment.GetCommandLineArgs()[1];
+                Application.Run(new Form1(@"C:\Users\jonas\Downloads\CaveStory.mid"));
+
+            }
+            catch
+            {
+
+            }
+
+            SongPlayer.Exit();
+        }
+    }
+}
