@@ -9,7 +9,7 @@ namespace MidiSorcery
         public Form1(string song)
         {
             InitializeComponent();
-            string pattern = @"[\w-\s]+\.";
+            string pattern = @"[\w-\s]+(?=\.)";
             Regex rx = new Regex(pattern);
 
             Match match = rx.Match(song);
