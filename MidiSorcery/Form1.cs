@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 using Melanchall.DryWetMidi.Interaction;
+using WMPLib;
 
 namespace MidiSorcery
 {
@@ -9,18 +10,26 @@ namespace MidiSorcery
         public Form1(string song)
         {
             InitializeComponent();
+
+            //Window name
             string pattern = @"[\w-\s]+(?=\.)";
             Regex rx = new Regex(pattern);
 
             Match match = rx.Match(song);
             this.Text = match.Value;
 
+            
+
+            //Song init
             SongPlayer.Initialize(song);
             SongPlayer.Play();
             //SongPlayer.OnNotePlayed += SetProgress;
             SongPlayer.OnFinish += Application.Exit;
             SetProgress();
 
+            
+
+            //Update loop
             System.Timers.Timer timer = new(10);
             timer.AutoReset = true;
             timer.Elapsed += timerElapse;

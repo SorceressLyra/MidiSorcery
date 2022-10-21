@@ -13,7 +13,7 @@ namespace MidiSorcery
     public static class SongPlayer
     {
         private static OutputDevice outputDevice;
-        private static  Playback playback;
+        private static Playback playback;
 
 
         public static event Action OnNotePlayed;
@@ -30,7 +30,7 @@ namespace MidiSorcery
 
         public static void Initialize(string location)
         {
-            outputDevice = OutputDevice.GetByName("Microsoft GS Wavetable Synth");
+            outputDevice = OutputDevice.GetByName(CheckSynth());
 
             try
             {
@@ -82,6 +82,55 @@ namespace MidiSorcery
             playback.MoveToTime(span);
 
             Play();
+        }
+
+        static string CheckSynth()
+        {
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            string specificFolder = Path.Combine(path, "MidiSorcery");
+            string filePath = Path.Combine(specificFolder, "Synth.option");
+
+            if (File.Exists(filePath))
+            {
+                string[] info = File.ReadAllLines(filePath);
+
+                string synth = "Microsoft GS WaveTable Synth";
+                foreach (string s in info)
+                {
+                    if (s.StartsWith('#'))
+                        continue;
+
+                    synth = s;
+                    break;
+                }
+
+                return synth;
+            }
+            else
+            {
+                Directory.CreateDirectory(specificFolder);
+
+                List<OutputDevice> devices = OutputDevice.GetAll().ToList();
+                List<string> fileLines = new List<string>();
+
+
+                fileLines.Add("# Lines with '#' are ignored, use this to select preferred output device");
+                for (int i = 0; i < devices.Count; i++)
+                {
+                    if (i == 0)
+                    {
+                        fileLines.Add(devices[i].Name);
+                        continue;
+                    }
+
+                    fileLines.Add("# " + devices[i].Name);
+
+                }
+
+
+                File.WriteAllLines(filePath, fileLines);
+                return devices[0].Name;
+            }
         }
 
         public static void Exit()
