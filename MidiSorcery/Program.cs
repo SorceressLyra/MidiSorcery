@@ -16,8 +16,8 @@ namespace MidiSorcery
             ApplicationConfiguration.Initialize();
             try
             {
-                //string song = Environment.GetCommandLineArgs()[1];
-                string song = Path.Combine(Directory.GetCurrentDirectory(), "E1M1.mid");
+                string song = Environment.GetCommandLineArgs()[1];
+                //string song = Path.Combine(Directory.GetCurrentDirectory(), "E1M1.mid");
 
                 Application.Run(new Form1(song));
 
