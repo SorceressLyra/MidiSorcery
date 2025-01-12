@@ -1,3 +1,5 @@
+# This repository is archived and is not being developed.
+
 # MidiSorcery
 Custom Midi player for windows using DryWetMidi
 
